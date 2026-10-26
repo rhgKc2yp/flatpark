@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=FreeFEM
+Comment=Solve partial differential equations with finite elements
+Exec=freefem %f
+Icon=io.github.FreeFem.FreeFEM
+Terminal=true
+Categories=Science;Math;NumericalAnalysis;
+Keywords=PDE;Finite Elements;Simulation;

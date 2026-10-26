@@ -1,0 +1,43 @@
+#!/bin/sh
+set -eu
+root=/app/extra/freefem
+# Resources live in upstream's versioned directory; updates need no wrapper edits.
+set -- "$root"/lib/ff++/* "$@"
+resources=$1
+shift
+# Use upstream's supported search paths without changing its preference file.
+export FF_LOADPATH="$resources/lib${FF_LOADPATH:+;$FF_LOADPATH}"
+export FF_INCLUDEPATH="$resources/idp${FF_INCLUDEPATH:+;$FF_INCLUDEPATH}"
+# PETSc ships real and complex libraries with the same sonames; select one set
+# before loading a plugin. These supported variables also locate PETSc's helpers.
+case "${FREEFEM_PETSC_VARIANT:-real}" in
+    real) petsc="$root/ff-petsc/r" ;;
+    complex) petsc="$root/ff-petsc/c" ;;
+    *) echo 'FREEFEM_PETSC_VARIANT must be real or complex' >&2; exit 2 ;;
+esac
+export PETSC_DIR="$petsc" PETSC_LIB_DIR="$petsc/lib" SLEPC_DIR="$petsc"
+# Shared numerical dependencies are in the real tree for both variants.
+export LD_LIBRARY_PATH="$petsc/lib:$root/ff-petsc/r/lib:/app/extra/support/usr/lib/x86_64-linux-gnu:/app/extra/support/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+export PATH="$root/bin:$root/ff-petsc/r/bin:$PATH"
+# The second installed command launches the bundled MPI executable directly.
+# All ranks stay local unless the user explicitly configures another host setup.
+if [ "${0##*/}" = freefem-mpi ]; then
+    ranks=2
+    if [ "${1:-}" = -n ]; then
+        [ "$#" -ge 3 ] || { echo 'Usage: freefem-mpi [-n N] script.edp [args]' >&2; exit 2; }
+        ranks=$2
+        shift 2
+    fi
+    case "$ranks" in ''|*[!0-9]*|0) echo 'MPI rank count must be a positive integer' >&2; exit 2;; esac
+    [ "$#" -gt 0 ] || { echo 'Usage: freefem-mpi [-n N] script.edp [args]' >&2; exit 2; }
+    exec "$root/ff-petsc/r/bin/mpiexec" -n "$ranks" "$root/bin/FreeFem++-mpi" "$@"
+fi
+# With no script supplied, show the official Laplace tutorial from the app menu.
+if [ "$#" -eq 0 ]; then
+    # Keep the tutorial's Laplace.eps in persistent application data.
+    cd "$XDG_DATA_HOME"
+    set -- "$root/share/FreeFEM/${resources##*/}/examples/tutorial/Laplace.edp"
+fi
+# Leave plotter selection to upstream so -nw and -fglut keep their behavior.
+# The default ffglut command is already on PATH above.
+exec "$root/bin/FreeFem++" "$@"
