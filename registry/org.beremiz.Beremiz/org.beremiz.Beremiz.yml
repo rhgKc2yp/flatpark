@@ -1,0 +1,52 @@
+id: org.beremiz.Beremiz
+runtime: org.gnome.Platform
+runtime-version: "51"
+sdk: org.gnome.Sdk
+command: beremiz
+separate-locales: false
+build-options:
+  no-debuginfo: true
+finish-args:
+  # wxGTK display, shared memory and rendering.
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Connect to local and remote PLC runtimes, including project debug sessions.
+  - --share=network
+  # PLC projects contain sibling files and generated build output.
+  - --filesystem=xdg-documents
+  # wx.Config writes a single ~/.beremiz file. Persist the private sandbox home
+  # so atomic file replacement works, without exposing the host home directory.
+  - --persist=.
+modules:
+  - name: beremiz
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 apply_extra.sh /app/bin/apply_extra
+      - install -Dm755 beremiz-wrapper /app/bin/beremiz
+      - install -Dm644 org.beremiz.Beremiz.desktop /app/share/applications/org.beremiz.Beremiz.desktop
+      - install -Dm644 org.beremiz.Beremiz.metainfo.xml /app/share/metainfo/org.beremiz.Beremiz.metainfo.xml
+      - install -Dm644 org.beremiz.Beremiz.png /app/share/icons/hicolor/256x256/apps/org.beremiz.Beremiz.png
+    sources:
+      # Local verification pin. Replace with a published beremiz_release asset
+      # before opening the FlatPark submission.
+      # BEGIN MANAGED EXTRA-DATA
+      - type: extra-data
+        filename: beremiz.tar.gz
+        only-arches:
+          - x86_64
+        url: http://127.0.0.1:8876/beremiz-1.6.0-1-x86_64.tar.gz
+        sha256: 211a6baf7fe0238e4e1d0761ce5150039c0110aceba982dcbec5c52ade18a2e1
+        size: 221851151
+      # END MANAGED EXTRA-DATA
+      - type: file
+        path: apply_extra.sh
+      - type: file
+        path: beremiz-wrapper
+      - type: file
+        path: org.beremiz.Beremiz.desktop
+      - type: file
+        path: org.beremiz.Beremiz.metainfo.xml
+      - type: file
+        path: org.beremiz.Beremiz.png
