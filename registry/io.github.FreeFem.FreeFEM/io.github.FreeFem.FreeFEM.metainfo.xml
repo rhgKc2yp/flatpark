@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.FreeFem.FreeFEM</id>
+  <name>FreeFEM</name>
+  <summary>Solve partial differential equations with finite elements</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-3.0-or-later</project_license>
+  <developer id="org.freefem"><name>FreeFEM developers</name></developer>
+  <description>
+    <p>FreeFEM is a scripting language and finite element solver for two- and
+    three-dimensional partial differential equations. It provides mesh generation,
+    numerical solvers and interactive plots for multiphysics simulations.</p>
+    <p>This community package runs the official upstream Linux build unmodified.
+    Separate HDF5, compression and OpenGL utility libraries support the solver
+    and its plotting window.</p>
+    <p>The app menu runs the upstream Laplace tutorial in a terminal with an
+    interactive plot; its Laplace.eps output is saved in the app data directory.
+    Run your own scripts with
+    <code>flatpak run io.github.FreeFem.FreeFEM /path/to/model.edp</code>.
+    Add <code>-nw</code> for calculations without a plot window. For local parallel
+    runs, use <code>flatpak run --command=freefem-mpi io.github.FreeFem.FreeFEM -n 4 /path/to/model.edp</code>.
+    For PETSc-complex scripts, add <code>--env=FREEFEM_PETSC_VARIANT=complex</code>
+    before the app ID to select the bundled complex solver libraries.</p>
+    <p>Scripts can read and write Documents by default. For projects elsewhere,
+    grant their directory with
+    <code>flatpak override --user --filesystem=/path/to/projects io.github.FreeFem.FreeFEM</code>.
+    Undo custom grants with
+    <code>flatpak override --user --reset io.github.FreeFem.FreeFEM</code>.</p>
+    <p>Host compilers, external editors and cluster services are not available
+    inside the sandbox. Building new plugins requires a separate development
+    environment. Network access for scripts is optional:
+    <code>flatpak override --user --share=network io.github.FreeFem.FreeFEM</code>.</p>
+  </description>
+  <launchable type="desktop-id">io.github.FreeFem.FreeFEM.desktop</launchable>
+  <url type="homepage">https://freefem.org/</url>
+  <url type="help">https://doc.freefem.org/</url>
+  <url type="bugtracker">https://github.com/flatpark/flatpark/issues</url>
+  <categories><category>Science</category><category>NumericalAnalysis</category></categories>
+  <screenshots>
+    <screenshot type="default"><image>https://freefem.org/img/Poisson.png</image></screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <releases><release version="4.17" date="2026-07-13"/></releases>
+</component>

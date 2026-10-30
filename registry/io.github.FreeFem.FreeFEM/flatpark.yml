@@ -1,0 +1,18 @@
+id: io.github.FreeFem.FreeFEM
+name: FreeFEM
+summary: Solve partial differential equations with finite elements
+website: https://freefem.org/
+source_url: https://github.com/FreeFem/FreeFem-sources
+build:
+  manifest: io.github.FreeFem.FreeFEM.yml
+  branch: stable
+  mode: extra-data
+  arches: [x86_64]
+catalog:
+  category: Science
+  tags: [Finite Elements, PDE, Simulation, Mathematics]
+update:
+  command: ./resolve-update.sh
+policy:
+  proprietary: false
+  dangerous_permissions: []
