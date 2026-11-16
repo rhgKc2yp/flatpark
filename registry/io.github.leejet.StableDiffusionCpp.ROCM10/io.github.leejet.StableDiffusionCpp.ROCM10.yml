@@ -1,0 +1,47 @@
+# Draft: matching ROCm runtime and GPU kernel extra-data pins are still needed.
+# Do not publish before the HIP backend loads and AMD GPU inference is tested.
+id: io.github.leejet.StableDiffusionCpp.ROCM10
+runtime: org.freedesktop.Platform
+runtime-version: "26.08"
+sdk: org.freedesktop.Sdk
+command: sd-server
+separate-locales: false
+build-options:
+  no-debuginfo: true
+finish-args:
+  # Serve the embedded Web UI and HTTP API on loopback.
+  - --share=network
+  # ROCm compute needs /dev/kfd as well as /dev/dri. Flatpak exposes
+  # KFD through --device=all, declared in flatpark.yml.
+  - --device=all
+modules:
+  - name: stable-diffusion
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 apply_extra.sh /app/bin/apply_extra
+      - install -Dm755 sd-server-wrapper /app/bin/sd-server
+      - install -Dm755 sd-cli-wrapper /app/bin/sd-cli
+      - install -Dm644 io.github.leejet.StableDiffusionCpp.ROCM10.desktop /app/share/applications/io.github.leejet.StableDiffusionCpp.ROCM10.desktop
+      - install -Dm644 io.github.leejet.StableDiffusionCpp.ROCM10.metainfo.xml /app/share/metainfo/io.github.leejet.StableDiffusionCpp.ROCM10.metainfo.xml
+      - install -Dm644 io.github.leejet.StableDiffusionCpp.ROCM10.png /app/share/icons/hicolor/512x512/apps/io.github.leejet.StableDiffusionCpp.ROCM10.png
+    sources:
+      # BEGIN MANAGED EXTRA-DATA
+      - type: extra-data
+        filename: sd.zip
+        only-arches: [x86_64]
+        url: https://github.com/leejet/stable-diffusion.cpp/releases/download/master-1104-5dcfa79/sd-master-5dcfa79-bin-Linux-Ubuntu-24.04-x86_64-rocm-10.1.0.zip
+        sha256: c379e6c17fd5e00f230f98fe350bf21f1ce2d7bb40aa57d62003266926cf8de8
+        size: 322146276
+      # END MANAGED EXTRA-DATA
+      - type: file
+        path: apply_extra.sh
+      - type: file
+        path: sd-server-wrapper
+      - type: file
+        path: sd-cli-wrapper
+      - type: file
+        path: io.github.leejet.StableDiffusionCpp.ROCM10.desktop
+      - type: file
+        path: io.github.leejet.StableDiffusionCpp.ROCM10.metainfo.xml
+      - type: file
+        path: io.github.leejet.StableDiffusionCpp.ROCM10.png

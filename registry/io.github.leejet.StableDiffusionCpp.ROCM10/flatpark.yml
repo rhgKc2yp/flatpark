@@ -1,0 +1,18 @@
+id: io.github.leejet.StableDiffusionCpp.ROCM10
+name: stable-diffusion.cpp (ROCm 10)
+summary: Generate images and video locally with ROCm 10
+website: https://github.com/leejet/stable-diffusion.cpp
+source_url: https://github.com/leejet/stable-diffusion.cpp
+build:
+  manifest: io.github.leejet.StableDiffusionCpp.ROCM10.yml
+  branch: stable
+  mode: extra-data
+  arches: [x86_64]
+catalog:
+  category: Graphics
+  tags: [AI, ImageGeneration, StableDiffusion, ROCm10]
+update:
+  command: ./resolve-update.sh
+policy:
+  proprietary: false
+  dangerous_permissions: ["--device=all"]

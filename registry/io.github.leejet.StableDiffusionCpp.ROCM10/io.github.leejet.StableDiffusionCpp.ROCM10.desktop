@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=stable-diffusion.cpp (ROCm 10)
+Comment=Start the local Web UI at http://127.0.0.1:1237
+Exec=sd-server
+Icon=io.github.leejet.StableDiffusionCpp.ROCM10
+Terminal=true
+Categories=Graphics;2DGraphics;
+Keywords=AI;StableDiffusion;Image;Video;ROCm 10;

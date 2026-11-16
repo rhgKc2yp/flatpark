@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.leejet.StableDiffusionCpp.ROCM10</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>stable-diffusion.cpp (ROCm 10)</name>
+  <summary>Generate images and video locally with ROCm 10</summary>
+  <developer id="io.github.leejet"><name>leejet and contributors</name></developer>
+  <description>
+    <p>Run diffusion models locally with the embedded browser interface, HTTP APIs,
+    or command-line tools. This ROCm 10 edition is a community package of the
+    official upstream Linux ROCm 10 build, repackaged unmodified.</p>
+    <p>This edition requires an AMD GPU supported by ROCm 10.1.0.
+    It grants device access for ROCm compute through /dev/kfd and /dev/dri.</p>
+    <p>The desktop entry starts the server in a terminal. Open
+    http://127.0.0.1:1237/ in your browser and keep the terminal open.
+    Model weights are downloaded separately and follow their own licenses.</p>
+    <p>Place model files in category folders such as checkpoints, diffusion_models,
+    text_encoders and vae under ~/.var/app/io.github.leejet.StableDiffusionCpp.ROCM10/data/models/.
+    Relative CLI output is saved under ~/.var/app/io.github.leejet.StableDiffusionCpp.ROCM10/data/. Access to
+    additional model directories is optional:</p>
+    <ul>
+      <li>Read models from Downloads: flatpak override --user --filesystem=xdg-download:ro io.github.leejet.StableDiffusionCpp.ROCM10</li>
+      <li>Write output to Pictures: flatpak override --user --filesystem=xdg-pictures io.github.leejet.StableDiffusionCpp.ROCM10</li>
+      <li>Undo these grants: flatpak override --user --reset io.github.leejet.StableDiffusionCpp.ROCM10</li>
+    </ul>
+    <p>Use sd-cli through flatpak run --command=sd-cli io.github.leejet.StableDiffusionCpp.ROCM10,
+    or pass server options through flatpak run io.github.leejet.StableDiffusionCpp.ROCM10.
+    Each backend edition has its own model directory and browser origin.</p>
+  </description>
+  <launchable type="desktop-id">io.github.leejet.StableDiffusionCpp.ROCM10.desktop</launchable>
+  <url type="homepage">https://github.com/leejet/stable-diffusion.cpp</url>
+  <url type="help">https://github.com/leejet/stable-diffusion.cpp/blob/master/examples/server/README.md</url>
+  <url type="bugtracker">https://github.com/flatpark/flatpark/issues</url>
+  <content_rating type="oars-1.1"/>
+  <releases><release version="master-1104-5dcfa79" date="2026-11-14"/></releases>
+</component>
