@@ -1,0 +1,20 @@
+id: io.github.microlift.Rosemary
+name: Rosemary
+summary: Run macOS applications on Linux
+website: https://github.com/microlift/rosemary
+source_url: https://github.com/microlift/rosemary
+build:
+  manifest: io.github.microlift.Rosemary.yml
+  mode: extra-data
+  arches: [x86_64]
+catalog:
+  category: System
+  interface: cli
+  tags: [Compatibility, Emulation, macOS, Terminal]
+update:
+  command: ./resolve-update.sh
+policy:
+  proprietary: false
+  dangerous_permissions:
+    # Applications and prefixes are passed as paths on the command line.
+    - --filesystem=home

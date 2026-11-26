@@ -1,0 +1,56 @@
+id: io.github.microlift.Rosemary
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+command: rosemary
+separate-locales: false
+build-options:
+  no-debuginfo: true
+finish-args:
+  # Guest applications can display windows, render graphics and play sound.
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --device=dri
+  # Guest applications and prefix setup can use the network.
+  - --share=network
+  # The command line accepts application and prefix paths.
+  - --filesystem=home
+modules:
+  - name: rosemary
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 apply_extra.sh /app/bin/apply_extra
+      - install -Dm755 rosemary-wrapper /app/bin/rosemary
+      - install -Dm755 rosemary-desktop /app/bin/rosemary-desktop
+      - install -Dm644 io.github.microlift.Rosemary.desktop /app/share/applications/io.github.microlift.Rosemary.desktop
+      - install -Dm644 io.github.microlift.Rosemary.metainfo.xml /app/share/metainfo/io.github.microlift.Rosemary.metainfo.xml
+      - install -Dm644 io.github.microlift.Rosemary.svg /app/share/icons/hicolor/scalable/apps/io.github.microlift.Rosemary.svg
+    sources:
+      - type: extra-data
+        filename: appimage-tools.tar.xz
+        only-arches: [x86_64]
+        url: https://github.com/flatpark/prebuilt/releases/download/appimage-tools-v2/appimage-tools-appimage-tools-v2-fd-26.08-x86_64.tar.xz
+        sha256: 01ff0b363031060c3d9877bc61b026a1a7422308fd9e5cfda53cc24971b12304
+        size: 57220
+      # BEGIN MANAGED EXTRA-DATA
+      - type: extra-data
+        filename: rosemary.AppImage
+        only-arches: [x86_64]
+        url: https://github.com/microlift/rosemary/releases/download/v0.5.0/Rosemary-0.5.0-x86_64.AppImage
+        sha256: 04fbdae4d1052e2a65fa9442ded5117542da48a6022c36dd5c65e459c3adf108
+        size: 132770296
+      # END MANAGED EXTRA-DATA
+      - type: file
+        path: apply_extra.sh
+      - type: file
+        path: rosemary-wrapper
+      - type: file
+        path: rosemary-desktop
+      - type: file
+        path: io.github.microlift.Rosemary.desktop
+      - type: file
+        path: io.github.microlift.Rosemary.metainfo.xml
+      - type: file
+        path: io.github.microlift.Rosemary.svg

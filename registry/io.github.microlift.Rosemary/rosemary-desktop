@@ -1,0 +1,4 @@
+#!/bin/sh
+printf '%s\n' 'Rosemary terminal' 'Run rosemary with a macOS application path. Type exit to close.' ''
+cd "$HOME" || exit 1
+exec /bin/bash -i

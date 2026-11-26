@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Rosemary
+Comment=Run macOS applications on Linux
+Exec=rosemary-desktop
+Terminal=true
+Type=Application
+Categories=System;Emulator;ConsoleOnly;
+StartupNotify=false
+Icon=io.github.microlift.Rosemary

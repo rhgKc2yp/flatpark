@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.microlift.Rosemary</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>Rosemary</name>
+  <summary>Run macOS applications on Linux</summary>
+  <url type="homepage">https://github.com/microlift/rosemary</url>
+  <url type="vcs-browser">https://github.com/microlift/rosemary</url>
+  <url type="help">https://github.com/flatpark/flatpark/issues</url>
+  <url type="bugtracker">https://github.com/flatpark/flatpark/issues</url>
+  <description>
+    <p>Rosemary is an experimental macOS compatibility layer and emulator. It runs Mach-O executables and application bundles, with incomplete application compatibility.</p>
+    <p>The application menu opens a terminal where you can run rosemary. From an existing terminal, use <code>flatpak run io.github.microlift.Rosemary /path/to/application</code>.</p>
+    <p>The sandbox can access files in your home directory. The sandbox has a private /tmp. External drives are not included; add them with <code>flatpak override --user --filesystem=/run/media io.github.microlift.Rosemary</code>. Undo overrides with <code>flatpak override --user --reset io.github.microlift.Rosemary</code>.</p>
+  </description>
+  <launchable type="desktop-id">io.github.microlift.Rosemary.desktop</launchable>
+  <categories><category>System</category><category>Emulator</category></categories>
+  <content_rating type="oars-1.1"/>
+  <requires><control>keyboard</control></requires>
+  <releases><release version="0.5.0" date="2026-10-30"/></releases>
+</component>
